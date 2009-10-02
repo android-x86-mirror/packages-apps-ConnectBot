@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	ConnectBot: simple, powerful, open-source SSH client for Android
+	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
+	
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<EditTextPreference
+		android:key="nickname"
+		android:title="@string/hostpref_nickname_title"
+		android:singleLine="true"
+		/>
+
+	<ListPreference
+		android:key="color"
+		android:title="@string/hostpref_color_title"
+		android:entries="@array/list_colors"
+		android:entryValues="@array/list_color_values"
+		/>
+<!--  
+	<CheckBoxPreference
+		android:key="usekeys"
+		android:title="Use SSH keys"
+		/>
+-->
+
+	<ListPreference
+		android:key="pubkeyid"
+		android:title="@string/hostpref_pubkeyid_title"
+		android:entries="@array/list_pubkeyids"
+		android:entryValues="@array/list_pubkeyids_value"
+		/>
+
+	<ListPreference
+		android:key="useauthagent"
+		android:title="@string/hostpref_authagent_title"
+		android:entries="@array/list_authagent"
+		android:entryValues="@array/list_authagent_values"
+		/>
+
+	<EditTextPreference
+		android:key="postlogin"
+		android:title="@string/hostpref_postlogin_title"
+		android:summary="@string/hostpref_postlogin_summary"
+		/>
+		
+	<CheckBoxPreference
+		android:key="compression"
+		android:title="@string/hostpref_compression_title"
+		android:summary="@string/hostpref_compression_summary"
+		/>
+		
+	<CheckBoxPreference
+		android:key="wantsession"
+		android:title="@string/hostpref_wantsession_title"
+		android:summary="@string/hostpref_wantsession_summary"
+		/>
+
+	<CheckBoxPreference
+		android:key="stayconnected"
+		android:title="@string/hostpref_stayconnected_title"
+		android:summary="@string/hostpref_stayconnected_summary"
+		/>
+
+	<ListPreference
+		android:key="delkey"
+		android:title="@string/hostpref_delkey_title"
+		android:summary="@string/hostpref_delkey_summary"
+		android:entries="@array/list_delkey"
+		android:entryValues="@array/list_delkey_values"
+		/>
+
+	<ListPreference
+		android:key="encoding"
+		android:title="@string/hostpref_encoding_title"
+		android:summary="@string/hostpref_encoding_summary"
+		/>
+	
+	<PreferenceCategory
+		android:title="@string/hostpref_connection_category">
+		
+		<EditTextPreference
+			android:key="username"
+			android:title="@string/hostpref_username_title"
+			android:singleLine="true"
+			/>
+
+		<EditTextPreference
+			android:key="hostname"
+			android:title="@string/hostpref_hostname_title"
+			android:singleLine="true"
+			/>
+
+		<EditTextPreference
+			android:key="port"
+			android:title="@string/hostpref_port_title"
+			android:numeric="integer"
+			/>
+
+	</PreferenceCategory>
+
+</PreferenceScreen>
