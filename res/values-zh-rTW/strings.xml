@@ -31,7 +31,7 @@
 	<string name="pubkey_import">導入</string>
 	<string name="pubkey_delete">刪除密鑰</string>
 	<!-- Dialog title when user must move finger randomly over an area to gather entropy (collect random bits) -->
-	<string name="pubkey_gather_entropy">Gathering Entropy</string>
+	<string name="pubkey_gather_entropy">收集熵(隨機數)</string>
 	<string name="pubkey_touch_prompt">觸摸方框來收集隨機數：%1$d％完成</string>
 	<string name="pubkey_touch_hint">由於密鑰產生的時候需要隨機數據，請在下面的方框中隨便移動你的手指</string>
 	<string name="pubkey_generating">正在產生密鑰配對</string>
@@ -147,6 +147,11 @@
 	<string name="pref_update_title">頻率檢查更新</string>
 	<!-- Summary for the update check preference -->
 	<string name="pref_update_summary">最大頻率檢查ConnectBot更新</string>
+
+	<!-- Name for the preference that forces the service to stay running in the background.-->
+	<string name="pref_conn_persist_title">持續連線</string>
+	<!-- Summary for the preference that forces the service to stay running in the background. -->
+	<string name="pref_conn_persist_summary">在背景執行時仍強制停留在連線狀態</string>
 
 	<!-- Name for the keyboard shortcuts preference -->
 	<string name="pref_keymode_title">Directory shortcuts</string>
