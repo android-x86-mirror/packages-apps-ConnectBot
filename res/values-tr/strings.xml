@@ -1,152 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_desc">Yksinkertainen, tehokas, avoimen lähdekoodin SSH-asiakasohjelma.</string>
+	<string name="app_desc">Basit, güçlü, açık kaynaklı SSH istemci.</string>
 
 	<!-- Window title for the Host List -->
-	<string name="title_hosts_list">Palvelimet</string>
+	<string name="title_hosts_list">Anasistemler</string>
 	<!-- Window title for the Pubkeys List -->
-	<string name="title_pubkey_list">Julkiset avaimet</string>
+	<string name="title_pubkey_list">Açık Anahtarlar</string>
 	<!-- Window title for the Port Forwards List -->
-	<string name="title_port_forwards_list">Porttiohjaukset</string>
+	<string name="title_port_forwards_list">Erişim noktası yönlendirmeleri</string>
 	<!-- Window title when editing host details -->
-	<string name="title_host_editor">Palvelimen muokkaus</string>
+	<string name="title_host_editor">Anasistemi Düzenle</string>
 	<!-- Window title for Help index -->
-	<string name="title_help">Ohje</string>
+	<string name="title_help">Yardım</string>
 	<!-- Window title for color list editing screen -->
-	<string name="title_colors">Värit</string>
+	<string name="title_colors">Renkler</string>
 
-	<string name="resolve_connect">Yhdistä</string>
+	<string name="resolve_connect">Bağlan</string>
 	<!-- Menu selection where user must move finger randomly over an area to gather entropy (collect random bits) -->
-	<string name="resolve_entropy">Gather Entropy</string>
+	<string name="resolve_entropy">Entropi Topla</string>
 
-	<string name="menu_insert">Lisää palvelin</string>
-	<string name="menu_delete">Poista palvelin</string>
-	<string name="menu_preferences">Asetukset</string>
+	<string name="menu_insert">Anasistem Ekle</string>
+	<string name="menu_delete">Anasistemi Sil</string>
+	<string name="menu_preferences">Tercihler</string>
 
-	<string name="help_intro">Ole hyvä ja valitse alta aihe, josta haluaisit tietää lisää.</string>
-	<string name="help_about">Tietoja ConnectBotista</string>
-	<string name="help_keyboard">Näppäimistö</string>
+	<string name="help_intro">Please select a topic below for more information on a particular subject.</string>
+	<string name="help_about">ConnectBot Hakkında</string>
+	<string name="help_keyboard">Klavye</string>
 
-	<string name="pubkey_generate">Luo</string>
-	<string name="pubkey_import">Tuo</string>
-	<string name="pubkey_delete">Poista avain</string>
+	<string name="pubkey_generate">Oluştur</string>
+	<string name="pubkey_import">İçe aktar</string>
+	<string name="pubkey_delete">Anahtarı Sil</string>
 	<!-- Dialog title when user must move finger randomly over an area to gather entropy (collect random bits) -->
-	<string name="pubkey_gather_entropy">Gathering Entropy</string>
-	<string name="pubkey_touch_prompt">Kosketa tätä laatikkoa kerätäksesi satunnaisdataa: %1$d%% valmiina</string>
-	<string name="pubkey_touch_hint">Varmistaaksesi avaimen luonnin satunnaisuuden, liikuta sormeasi alla olevan laatikon kohdalla sattumanvaraisesti.</string>
-	<string name="pubkey_generating">Luodaan avainparia...</string>
-	<string name="pubkey_copy_private">Kopio yksityinen avain</string>
-	<string name="pubkey_copy_public">Kopioi julkinen avain</string>
+	<string name="pubkey_gather_entropy">Entropi Toplanıyor</string>
+	<string name="pubkey_touch_prompt">Raslantısallık toplamak için bu kutuya dokun: %1$d%% gerçekleşti</string>
+	<string name="pubkey_touch_hint">Anahtar oluşturma süresince raslantısallığı sağlamak için parmağınızı aşağıdaki kutu içinde rastgele haraket ettiriniz.</string>
+	<string name="pubkey_generating">Anahtar çifti oluşturuluyor...</string>
+	<string name="pubkey_copy_private">Kişisel anahtarı kopyala</string>
+	<string name="pubkey_copy_public">Açık anahtarı kopyala</string>
 	<!-- Note that the '\n' just splits lines, so it's actually "create or import" -->
-	<string name="pubkey_list_empty">Tap "Menu" to create\nor import key pairs.</string>
-	<string name="pubkey_unknown_format">Tuntematon tyyppi</string>
-	<string name="pubkey_change_password">Vaihda salasana</string>
-	<string name="pubkey_list_pick">Pick from /sdcard</string>
-	<string name="pubkey_import_parse_problem">Ongelma käsiteltäessä tuotua avainparia</string>
-	<string name="pubkey_unlock">Unlock key</string>
-	<string name="pubkey_failed_add">Bad password for key \'%1$s\'. Authentication failed.</string>
-	<string name="pubkey_memory_load">Load into memory</string>
-	<string name="pubkey_memory_unload">Unload from memory</string>
-	<string name="pubkey_load_on_start">Load key on start</string>
+	<string name="pubkey_list_empty">Anahtar çiftini yaratmak veya\niçeri aktarmak için "Menü" ye dokun</string>
+	<string name="pubkey_unknown_format">Bilinmeyen biçim</string>
+	<string name="pubkey_change_password">Parolayı değiştir</string>
+	<string name="pubkey_list_pick">/sdcard \'dan seç</string>
+	<string name="pubkey_import_parse_problem">İçeri aktarılan kişisel anahtarı ayrıştırma sorunu</string>
+	<string name="pubkey_unlock">Anahtarın kilidini aç</string>
+	<string name="pubkey_failed_add">Anahtar \'%1$s\' için hatalı parola. Kimlik doğrulama başarısız oldu.</string>
+	<string name="pubkey_memory_load">Belleğe yükle</string>
+	<string name="pubkey_memory_unload">Bellekten kaldır</string>
+	<string name="pubkey_load_on_start">Başlangıçta anahtarı yükle</string>
 	<!-- Pubkey preference asking user whether the key use should be confirmed via prompt before it can be used for authentication -->
-	<string name="pubkey_confirm_use">Confirm before use</string>
+	<string name="pubkey_confirm_use">Kullanmadan önce doğrulat</string>
 
 	<!-- Note that the '\n' splits lines, so it's actually "create port forwards" -->
-	<string name="portforward_list_empty">Tap "Menu" to create\nport forwards.</string>
-	<string name="portforward_edit">Edit port forward</string>
-	<string name="portforward_delete">Delete port forward</string>
+	<string name="portforward_list_empty">Kapı yönlendirme yaratmak\niçin "Menü" ye dokun</string>
+	<string name="portforward_edit">Kapı yönlendirmeyi düzenle</string>
+	<string name="portforward_delete">Kapı yönlendirmeyi sil</string>
 
-	<string name="prompt_nickname">Nickname:</string>
+	<string name="prompt_nickname">Takma Ad:</string>
 	<!-- An example string that could be used as a nickname for a pubkey. -->
-	<string name="prompt_nickname_hint_pubkey">My work key</string>
+	<string name="prompt_nickname_hint_pubkey">Açık anahtar için takma ad</string>
 	<!-- The source TCP port for port forwards. -->
-	<string name="prompt_source_port">Source port:</string>
+	<string name="prompt_source_port">Kaynak kapı:</string>
 	<!-- The "host:port" combination used for port forward destinations. -->
-	<string name="prompt_destination">Destination:</string>
-	<string name="prompt_old_password">Old password:</string>
-	<string name="prompt_password">Password:</string>
+	<string name="prompt_destination">Hedef (Anasistem:Kapı):</string>
+	<string name="prompt_old_password">Eski Parola:</string>
+	<string name="prompt_password">Parola:</string>
 	<!-- Added after a "Password:" prompt to indicate user needs to confirm entry. -->
-	<string name="prompt_again">(again)</string>
+	<string name="prompt_again">(tekrar)</string>
 	<!-- Label for the user to select port forward type. -->
-	<string name="prompt_type">Type:</string>
-	<string name="prompt_password_can_be_blank">Note: password can be blank</string>
+	<string name="prompt_type">Tip:</string>
+	<string name="prompt_password_can_be_blank">Not: parola boş bırakılabilir</string>
 	<!-- Prompt for the size of the private key in bits. -->
-	<string name="prompt_bits">Bits:</string>
+	<string name="prompt_bits">İkiller:</string>
 
 	<!-- Prompt for the password to unlock a certain pubkey. -->
-	<string name="prompt_pubkey_password">Password for key \'%1$s\'</string>
+	<string name="prompt_pubkey_password">Anahtar \'%1$s\' için parola</string>
 
 	<!-- Prompt for whether to allow SSH Authentication Agent to use the specified key. Note that the '\n' means split the line so it's actually "host to use key" -->
-	<string name="prompt_allow_agent_to_use_key">Allow remote host to\nuse key \'%1$s\'?</string>
+	<string name="prompt_allow_agent_to_use_key">Uzak anasistemin \'%1$s\' anahtarını\nkullanmasına izin ver?</string>
 
 	<!-- The header of the warning a user gets when the host key has changed. Note that this can be a very serious attack, so we try to be as "loud" to the user as possible. -->
-	<string name="host_verification_failure_warning_header">WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!</string>
+	<string name="host_verification_failure_warning_header">UYARI: UZAK ANASİSTEM KİMLİĞİ DEĞİŞMİŞ!</string>
 	<!-- The body of the warning a user gets when the host key has changed. Note that this can be a very serious attack, so we try to be as "loud" to the user as possible. -->
-	<string name="host_verification_failure_warning">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\nIt is also possible that the host key has just been changed.</string>
+	<string name="host_verification_failure_warning">BİRİLERİNİN KÖTÜ BİRŞEYLER YAPIYOR OLMASI OLASI!\nBirileri şu anda sizi dinliyor olabilir (aradaki adam saldırısı)!\nSadece anasistem anahtarı da değişmiş olabilir.</string>
 
 	<!-- Prompt user gets when the remote host has disconnected unexpectedly. -->
-	<string name="prompt_host_disconnected">Host has disconnected.\nClose session?</string>
+	<string name="prompt_host_disconnected">Anasistem bağlantısı kesildi.\nOturumu kapat?</string>
 	<!-- Prompt user must answer yes or no to when the remote host fails verification of encryption fingerprint -->
-	<string name="prompt_continue_connecting">Are you sure you want\nto continue connecting?</string>
+	<string name="prompt_continue_connecting">Bağlanmaya devam etmek\nistediğinize emin misiniz?</string>
 
 	<!-- Sent to user when the remote public encryption key fingerprint doesn't match the local database -->
-	<string name="host_authenticity_warning">The authenticity of host \'%1$s\' can\'t be established.</string>
+	<string name="host_authenticity_warning">Anasistem \'%1$s\' in gerçekliği doğrulanamadı.</string>
 	<!-- First field is encryption algorithm. Second is the actual fingerprint in hex digits -->
-	<string name="host_fingerprint">Host %1$s key fingerprint is %2$s</string>
+	<string name="host_fingerprint">Anasistem %1$s anahtar parmakizi %2$s</string>
 
-	<string name="alert_passwords_do_not_match_msg">Passwords do not match!</string>
-	<string name="alert_wrong_password_msg">Wrong password!</string>
-	<string name="alert_key_corrupted_msg">Private key appears corrupt!</string>
-	<string name="alert_sdcard_absent">SD card is not inserted!</string>
+	<string name="alert_passwords_do_not_match_msg">Parolalar uyuşmuyor!</string>
+	<string name="alert_wrong_password_msg">Yanlış parola!</string>
+	<string name="alert_key_corrupted_msg">Kişisel anahtar bozuk görünüyor</string>
+	<string name="alert_sdcard_absent">SD kart takılmamış!</string>
 
 	<!-- Add a new item (e.g., host or pubkey) to the list. -->
-	<string name="button_add">Add</string>
+	<string name="button_add">Ekle</string>
 	<!-- Change an existing item's (e.g., host or pubkey) details. -->
-	<string name="button_change">Change</string>
+	<string name="button_change">Değiştir</string>
 	<!-- Button that begins the generation of a public key pair. -->
-	<string name="button_generate">Generate Key</string>
+	<string name="button_generate">Anahtar Üret</string>
 	<!-- Button that resizes the screen to the user-specified dimensions. -->
-	<string name="button_resize">Resize</string>
+	<string name="button_resize">Yeniden boyutlandır</string>
 
-	<string name="alert_disconnect_msg">Connection Lost</string>
+	<string name="alert_disconnect_msg">Bağlantı Kesildi</string>
 
-	<string name="msg_copyright">Copyright © 2007-2008 Kenny Root http://the-b.org/, Jeffrey Sharkey http://jsharkey.org/</string>
+	<string name="msg_copyright">Telif Hakkı © 2007-2008 Kenny Root http://the-b.org/, Jeffrey Sharkey http://jsharkey.org/</string>
 
 	<!-- The category title for terminal emulation preferences. -->
-	<string name="pref_emulation_category">Terminal emulation</string>
+	<string name="pref_emulation_category">Uçbirim öykünümü</string>
 
 	<!-- Name for the emulation terminal type preference. -->
-	<string name="pref_emulation_title">Emulation mode</string>
+	<string name="pref_emulation_title">Öykünüm kipi</string>
 	<!-- Description of the emulation terminal type preference. -->
-	<string name="pref_emulation_summary">Terminal emulation mode to use for PTY connections</string>
+	<string name="pref_emulation_summary">PTY bağlantıları için kullanılan uçbirim öykünüm kipi</string>
 
 	<!-- Name for the scrollback size preference -->
-	<string name="pref_scrollback_title">Scrollback size</string>
+	<string name="pref_scrollback_title">Geri kaydırma boyu</string>
 	<!-- Description of the scrollback size preference -->
-	<string name="pref_scrollback_summary">Size of scrollback buffer to keep in memory for each console</string>
+	<string name="pref_scrollback_summary">Her bir konsol için bellekte tutulacak geri kaydırma arabellek boyu</string>
 
 	<!-- The category title for user interface preferences -->
-	<string name="pref_ui_category">User interface</string>
+	<string name="pref_ui_category">Kullanıcı arayüzü</string>
 
 	<!-- Name for the rotation mode preference -->
-	<string name="pref_rotation_title">Rotation mode</string>
+	<string name="pref_rotation_title">Dönme kipi</string>
 	<!-- Summary for the rotation mode preference -->
-	<string name="pref_rotation_summary">How to change rotation when keyboard popped in/out</string>
+	<string name="pref_rotation_summary">Klavye saklandığında/açıldığında dönüş nasıl değişir</string>
 
 	<!-- Name for the full screen preference -->
-	<string name="pref_fullscreen_title">Full screen</string>
+	<string name="pref_fullscreen_title">Tüm ekran</string>
 	<!-- Summary for the full screen preference -->
-	<string name="pref_fullscreen_summary">Hide status bar while in console</string>
+	<string name="pref_fullscreen_summary">Konsolda iken durum çubuğunu gizle</string>
 
 	<!-- Name for the memorize keys preference -->
-	<string name="pref_memkeys_title">Remember keys in memory</string>
+	<string name="pref_memkeys_title">Anahtarları bellekte tut</string>
 	<!-- Summary for the memorize keys preference -->
-	<string name="pref_memkeys_summary">Keep unlocked keys in memory until backend service is terminated</string>
+	<string name="pref_memkeys_summary">Kilidi açılmış anahtarları arkadaki hizmetler sonlanana kadar bellekte tut</string>
 
 	<!-- Name for the update check preference -->
-	<string name="pref_update_title">Update check</string>
+	<string name="pref_update_title">Güncellemelere bak</string>
 	<!-- Summary for the update check preference -->
-	<string name="pref_update_summary">Set the maximum frequency to check for ConnectBot updates</string>
+	<string name="pref_update_summary">ConnectBot güncellemelerine bakmak için en fazla sıklığı ayarla</string>
 
 	<!-- Name for the preference that forces the service to stay running in the background.-->
 	<string name="pref_conn_persist_title">Persist connections</string>
@@ -154,24 +154,24 @@
 	<string name="pref_conn_persist_summary">Force connections to stay connected while in background</string>
 
 	<!-- Name for the keyboard shortcuts preference -->
-	<string name="pref_keymode_title">Directory shortcuts</string>
+	<string name="pref_keymode_title">Dizin kısayolları</string>
 	<!-- Summary for the keyboard shortcuts preference -->
-	<string name="pref_keymode_summary">Select how to use Alt for \'/\' and Shift for Tab</string>
+	<string name="pref_keymode_summary">\'/\' için Alt ve Tab için Shift kullanımının nasıl olacağını seç</string>
 
 	<!-- Name for the camera shortcut usage preference -->
-	<string name="pref_camera_title">Camera shortcut</string>
+	<string name="pref_camera_title">Kamera kısayolu</string>
 	<!-- Summary for the camera shortcut usage preference -->
-	<string name="pref_camera_summary">Select which shortcut to trigger when the camera button is pushed</string>
+	<string name="pref_camera_summary">Kamera düğmesine basıldığında hangi kısayolun tetikleneceğini seç</string>
 
 	<!-- Name for the keep screen on preference -->
-	<string name="pref_keepalive_title">Keep screen awake</string>
+	<string name="pref_keepalive_title">Ekranı açık tut</string>
 	<!-- Summary for the camera shortcut usage preference -->
-	<string name="pref_keepalive_summary">Prevent the screen from turning off when working in a console</string>
+	<string name="pref_keepalive_summary">Bir konsolda çalışırken ekranın kapanmasını engelle</string>
 
 	<!-- Name for the Wi-Fi lock preference -->
-	<string name="pref_wifilock_title">Keep Wi-Fi active</string>
+	<string name="pref_wifilock_title">Wi-Fi etkin tut</string>
 	<!-- Summary for the Wi-Fi lock preference -->
-	<string name="pref_wifilock_summary">Prevent Wi-Fi from turning off when a session is active</string>
+	<string name="pref_wifilock_summary">Bir oturum etkinken Wi-Fi kapanmasını engelle</string>
 
 	<!-- Name for the haptic feedback (bumpy arrow) preference -->
 	<string name="pref_bumpyarrows_title">Bumpy arrows</string>
