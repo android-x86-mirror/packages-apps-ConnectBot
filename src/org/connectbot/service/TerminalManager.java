@@ -1,20 +1,19 @@
 /*
-	ConnectBot: simple, powerful, open-source SSH client for Android
-	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package org.connectbot.service;
 
@@ -30,7 +29,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Map.Entry;
 
-import org.connectbot.ConsoleActivity;
 import org.connectbot.R;
 import org.connectbot.bean.HostBean;
 import org.connectbot.bean.PubkeyBean;
@@ -40,9 +38,6 @@ import org.connectbot.util.PreferenceConstants;
 import org.connectbot.util.PubkeyDatabase;
 import org.connectbot.util.PubkeyUtils;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -109,13 +104,9 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 	private volatile boolean wantKeyVibration;
 	public static final long VIBRATE_DURATION = 30;
 
-	private NotificationManager notificationManager;
-
 	private boolean wantBellVibration;
 
 	private boolean resizeAllowed = true;
-
-	private static final int NOTIFICATION_ID = 1;
 
 	@Override
 	public void onCreate() {
@@ -158,15 +149,6 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		wantBellVibration = prefs.getBoolean(PreferenceConstants.BELL_VIBRATE, true);
 		enableMediaPlayer();
-
-		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-		/* If user wants the connections to stay alive at all costs,
-		 * set the service to be "foreground."
-		 */
-		if (prefs.getBoolean(PreferenceConstants.CONNECTION_PERSIST, true)) {
-			setForeground(true);
-		}
 	}
 
 	@Override
@@ -200,6 +182,8 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		if (wifilock != null && wifilock.isHeld())
 			wifilock.release();
+
+		ConnectionNotifier.getInstance().hideRunningNotification(this);
 
 		disableMediaPlayer();
 	}
@@ -402,8 +386,9 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 	}
 
 	protected void stopNow() {
-		if (bridges.size() == 0)
+		if (bridges.size() == 0) {
 			stopSelf();
+		}
 	}
 
 	private synchronized void stopIdleTimer() {
@@ -425,6 +410,8 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		setResizeAllowed(true);
 
+		ConnectionNotifier.getInstance().hideRunningNotification(this);
+
 		stopIdleTimer();
 
 		// Make sure we stay running to maintain the bridges
@@ -439,6 +426,8 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		setResizeAllowed(true);
 
+		ConnectionNotifier.getInstance().hideRunningNotification(this);
+
 		Log.i(TAG, "Someone rebound to TerminalManager");
 
 		stopIdleTimer();
@@ -450,8 +439,16 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		setResizeAllowed(true);
 
-		if (bridges.size() == 0)
+		if (bridges.size() == 0) {
 			stopWithDelay();
+		} else {
+			/* If user wants the connections to stay alive at all costs,
+			 * set the service to be "foreground."
+			 */
+			if (prefs.getBoolean(PreferenceConstants.CONNECTION_PERSIST, true)) {
+				ConnectionNotifier.getInstance().showRunningNotification(this);
+			}
+		}
 
 		return true;
 	}
@@ -530,26 +527,7 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 		if (!prefs.getBoolean(PreferenceConstants.BELL_NOTIFICATION, false))
 			return;
 
-		String contentText = res.getString(
-				R.string.notification_text, host.getNickname());
-
-		Notification notification = new Notification(
-				R.drawable.notification_icon, contentText,
-				System.currentTimeMillis());
-		notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-		Context context = getApplicationContext();
-		Intent notificationIntent = new Intent(this, ConsoleActivity.class);
-		notificationIntent.setAction("android.intent.action.VIEW");
-		notificationIntent.setData(host.getUri());
-
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				notificationIntent, 0);
-
-		notification.setLatestEventInfo(context, res.getString(R.string.app_name),
-				contentText, contentIntent);
-
-		notificationManager.notify(NOTIFICATION_ID, notification);
+		ConnectionNotifier.getInstance().showActivityNotification(this, host);
 	}
 
 	/* (non-Javadoc)

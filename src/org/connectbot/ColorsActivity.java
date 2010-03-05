@@ -1,27 +1,26 @@
 /*
-	ConnectBot: simple, powerful, open-source SSH client for Android
-	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package org.connectbot;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.connectbot.bean.HostBean;
+import org.connectbot.util.Colors;
 import org.connectbot.util.HostDatabase;
 import org.connectbot.util.UberColorPickerDialog;
 import org.connectbot.util.UberColorPickerDialog.OnColorChangedListener;
@@ -31,8 +30,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -49,7 +51,7 @@ public class ColorsActivity extends Activity implements OnItemClickListener, OnC
 	private Spinner mFgSpinner;
 	private Spinner mBgSpinner;
 
-	private HostBean mHost;
+	private int mColorScheme;
 
 	private List<Integer> mColorList;
 	private HostDatabase hostdb;
@@ -57,7 +59,6 @@ public class ColorsActivity extends Activity implements OnItemClickListener, OnC
 	private int mCurrentColor = 0;
 
 	private int[] mDefaultColors;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,16 +69,17 @@ public class ColorsActivity extends Activity implements OnItemClickListener, OnC
 				getResources().getText(R.string.app_name),
 				getResources().getText(R.string.title_colors)));
 
-		mHost = null;
+		mColorScheme = HostDatabase.DEFAULT_COLOR_SCHEME;
 
 		hostdb = new HostDatabase(this);
 
-		mColorList = Arrays.asList(hostdb.getColorsForHost(mHost));
-		mDefaultColors = hostdb.getDefaultColorsForHost(mHost);
+		mColorList = Arrays.asList(hostdb.getColorsForScheme(mColorScheme));
+		mDefaultColors = hostdb.getDefaultColorsForScheme(mColorScheme);
 
 		mColorGrid = (GridView) findViewById(R.id.color_grid);
 		mColorGrid.setAdapter(new ColorsAdapter(true));
 		mColorGrid.setOnItemClickListener(this);
+		mColorGrid.setSelection(0);
 
 		mFgSpinner = (Spinner) findViewById(R.id.fg);
 		mFgSpinner.setAdapter(new ColorsAdapter(false));
@@ -292,6 +294,38 @@ public class ColorsActivity extends Activity implements OnItemClickListener, OnC
 		}
 
 		if (needUpdate)
-			hostdb.setDefaultColorsForHost(mHost, mDefaultColors[0], mDefaultColors[1]);
+			hostdb.setDefaultColorsForScheme(mColorScheme, mDefaultColors[0], mDefaultColors[1]);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuItem reset = menu.add(R.string.menu_colors_reset);
+		reset.setAlphabeticShortcut('r');
+		reset.setNumericShortcut('1');
+		reset.setIcon(android.R.drawable.ic_menu_revert);
+		reset.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			public boolean onMenuItemClick(MenuItem arg0) {
+				// Reset each individual color to defaults.
+				for (int i = 0; i < Colors.defaults.length; i++) {
+					if (mColorList.get(i) != Colors.defaults[i]) {
+						hostdb.setGlobalColor(i, Colors.defaults[i]);
+						mColorList.set(i, Colors.defaults[i]);
+					}
+				}
+				mColorGrid.invalidateViews();
+
+				// Reset the default FG/BG colors as well.
+				mFgSpinner.setSelection(HostDatabase.DEFAULT_FG_COLOR);
+				mBgSpinner.setSelection(HostDatabase.DEFAULT_BG_COLOR);
+				hostdb.setDefaultColorsForScheme(HostDatabase.DEFAULT_COLOR_SCHEME,
+						HostDatabase.DEFAULT_FG_COLOR, HostDatabase.DEFAULT_BG_COLOR);
+
+				return true;
+			}
+		});
+
+		return true;
 	}
 }

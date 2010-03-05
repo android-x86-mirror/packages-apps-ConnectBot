@@ -1774,27 +1774,43 @@ public void setScreenSize(int c, int r, boolean broadcast) {
                 c = map_cp850_unicode(c);
 
               /*if(true || (statusmode == 0)) { */
+              if (isWide) {
+                if (C >= columns - 1) {
+                  if (wraparound) {
+                    int bot = rows;
+
+                    // If we're in the scroll region, check against the bottom margin
+                    if (R <= getBottomMargin() && R >= getTopMargin())
+                      bot = getBottomMargin() + 1;
+
+                    if (R < bot - 1)
+                      R++;
+                    else {
+                      if (debug > 3) debug("scrolling due to wrap at " + R);
+                      insertLine(R, 1, SCROLL_UP);
+                    }
+                    C = 0;
+                  } else {
+                    // cursor stays on last wide character.
+                    C = columns - 2;
+                  }
+                }
+              }
+
               if (insertmode == 1) {
                 if (isWide) {
-                  if (C >= columns - 1) {
-                    C = 0;
-                    R++;
-                  }
                   insertChar(C++, R, c, attributes | FULLWIDTH);
                   insertChar(C, R, ' ', attributes | FULLWIDTH);
                 } else
                   insertChar(C, R, c, attributes);
               } else {
                 if (isWide) {
-                  if (C >= columns - 1) {
-                    C = 0;
-                    R++;
-                  }
                   putChar(C++, R, c, attributes | FULLWIDTH);
                   putChar(C, R, ' ', attributes | FULLWIDTH);
                 } else
                   putChar(C, R, c, attributes);
               }
+
               /*
                 } else {
                 if (insertmode==1) {
@@ -1962,7 +1978,8 @@ public void setScreenSize(int c, int r, boolean broadcast) {
             R = Sr;
             gl = Sgl;
             gr = Sgr;
-            for (int i = 0; i < 4; i++) gx[i] = Sgx[i];
+            if (Sgx != null)
+              for (int i = 0; i < 4; i++) gx[i] = Sgx[i];
             attributes = Sa;
             if (debug > 1)
               debug("ESC 8");

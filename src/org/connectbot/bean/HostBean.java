@@ -1,20 +1,20 @@
 /*
-	ConnectBot: simple, powerful, open-source SSH client for Android
-	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package org.connectbot.bean;
 
 import org.connectbot.util.HostDatabase;
@@ -46,6 +46,7 @@ public class HostBean extends AbstractBean {
 	private long pubkeyId = -1;
 	private boolean wantSession = true;
 	private String delKey = HostDatabase.DELKEY_DEL;
+	private int fontSize = -1;
 	private boolean compression = false;
 	private String encoding = HostDatabase.ENCODING_DEFAULT;
 	private boolean stayConnected = false;
@@ -172,6 +173,12 @@ public class HostBean extends AbstractBean {
 	public String getDelKey() {
 		return delKey;
 	}
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+	}
+	public int getFontSize() {
+		return fontSize;
+	}
 	public void setCompression(boolean compression) {
 		this.compression = compression;
 	}
@@ -223,6 +230,7 @@ public class HostBean extends AbstractBean {
 		values.put(HostDatabase.FIELD_HOST_PUBKEYID, pubkeyId);
 		values.put(HostDatabase.FIELD_HOST_WANTSESSION, Boolean.toString(wantSession));
 		values.put(HostDatabase.FIELD_HOST_DELKEY, delKey);
+		values.put(HostDatabase.FIELD_HOST_FONTSIZE, fontSize);
 		values.put(HostDatabase.FIELD_HOST_COMPRESSION, Boolean.toString(compression));
 		values.put(HostDatabase.FIELD_HOST_ENCODING, encoding);
 		values.put(HostDatabase.FIELD_HOST_STAYCONNECTED, stayConnected);

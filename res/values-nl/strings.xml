@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <resources>
 	<string name="app_desc">Simpele, krachtige, open-source SSH client.</string>
 
@@ -9,29 +27,29 @@
 	<!-- Window title for the Port Forwards List -->
 	<string name="title_port_forwards_list">Port forwards</string>
 	<!-- Window title when editing host details -->
-	<string name="title_host_editor">Bewerk host</string>
+	<string name="title_host_editor">Host bewerken</string>
 	<!-- Window title for Help index -->
 	<string name="title_help">Help</string>
 	<!-- Window title for color list editing screen -->
 	<string name="title_colors">Kleuren</string>
 
-	<string name="resolve_connect">Verbind</string>
+	<string name="resolve_connect">Verbinden</string>
 	<!-- Menu selection where user must move finger randomly over an area to gather entropy (collect random bits) -->
 	<string name="resolve_entropy">Verzamel Entropie</string>
 
-	<string name="menu_insert">Voeg Host Toe</string>
-	<string name="menu_delete">Verwijder Host</string>
+	<string name="menu_insert">Host Toevoegen</string>
+	<string name="menu_delete">Host verwijderen</string>
 	<string name="menu_preferences">Voorkeuren</string>
 
 	<string name="help_intro">Selecteer hieronder een onderwerp voor meer informatie over een onderwerp.</string>
 	<string name="help_about">Over ConnectBot</string>
 	<string name="help_keyboard">Toetsenbord</string>
 
-	<string name="pubkey_generate">Genereer</string>
-	<string name="pubkey_import">Importeer</string>
-	<string name="pubkey_delete">Verwijder knop</string>
+	<string name="pubkey_generate">Genereren</string>
+	<string name="pubkey_import">Importeren</string>
+	<string name="pubkey_delete">Sleutel verwijderen</string>
 	<!-- Dialog title when user must move finger randomly over an area to gather entropy (collect random bits) -->
-	<string name="pubkey_gather_entropy">Verzamelen van Entropie</string>
+	<string name="pubkey_gather_entropy">Bezig met het verzamelen van Entropie</string>
 	<string name="pubkey_touch_prompt">Raak dit vierkant aan om willekeurigheid te verzamelen: %1$d%% gedaan</string>
 	<string name="pubkey_touch_hint">Beweeg je vinger in willekeurige volgorde over het vak beneden om er voor te zorgen dat de invoer willekeurig blijft.</string>
 	<string name="pubkey_generating">Genereren van een sleutel paar...</string>
@@ -219,6 +237,9 @@
 
 	<!-- Host color category preference title -->
 	<string name="hostpref_color_title">Kleur catogorie</string>
+
+	<!-- Host's default font size when opening the terminal in points (pt) -->
+	<string name="hostpref_fontsize_title">Font size (pt)</string>
 
 	<!-- Host pubkey usage preference title -->
 	<string name="hostpref_pubkeyid_title">Gebruik pubkey authenticatie</string>
@@ -424,6 +445,12 @@
 
 	<!-- String displayed to user when they're asked to submit exceptions to the ConnectBot developers -->
 	<string name="exceptions_submit_message">Het lijkt erop dat ConnectBot een probleem had de laatste keer dat het gebruikt werd. Wilt u een foutenrapport naar de ConnectBot ontwikkelaars sturen?</string>
+
+	<!-- Menu selection to reset colors to their defaults. -->
+	<string name="menu_colors_reset">Reset</string>
+
+	<!-- Displayed in the notification bar that connections are active -->
+	<string name="app_is_running">ConnectBot is running</string>
 
 	<string name="color_red">rood</string>
 	<string name="color_green">groen</string>

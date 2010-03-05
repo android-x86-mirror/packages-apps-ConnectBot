@@ -1,20 +1,19 @@
 /*
-	ConnectBot: simple, powerful, open-source SSH client for Android
-	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package org.connectbot.transport;
 
@@ -108,6 +107,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 	private volatile boolean sessionOpen = false;
 
 	private boolean pubkeysExhausted = false;
+	private boolean interactiveCanContinue = true;
 
 	private Connection connection;
 	private Session session;
@@ -252,6 +252,17 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 				}
 
 				pubkeysExhausted = true;
+			} else if (interactiveCanContinue &&
+					connection.isAuthMethodAvailable(host.getUsername(), AUTH_KEYBOARDINTERACTIVE)) {
+				// this auth method will talk with us using InteractiveCallback interface
+				// it blocks until authentication finishes
+				bridge.outputLine(manager.res.getString(R.string.terminal_auth_ki));
+				interactiveCanContinue = false;
+				if(connection.authenticateWithKeyboardInteractive(host.getUsername(), this)) {
+					finishConnection();
+				} else {
+					bridge.outputLine(manager.res.getString(R.string.terminal_auth_ki_fail));
+				}
 			} else if (connection.isAuthMethodAvailable(host.getUsername(), AUTH_PASSWORD)) {
 				bridge.outputLine(manager.res.getString(R.string.terminal_auth_pass));
 				String password = bridge.getPromptHelper().requestStringPrompt(null,
@@ -261,15 +272,6 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 					finishConnection();
 				} else {
 					bridge.outputLine(manager.res.getString(R.string.terminal_auth_pass_fail));
-				}
-			} else if(connection.isAuthMethodAvailable(host.getUsername(), AUTH_KEYBOARDINTERACTIVE)) {
-				// this auth method will talk with us using InteractiveCallback interface
-				// it blocks until authentication finishes
-				bridge.outputLine(manager.res.getString(R.string.terminal_auth_ki));
-				if(connection.authenticateWithKeyboardInteractive(host.getUsername(), this)) {
-					finishConnection();
-				} else {
-					bridge.outputLine(manager.res.getString(R.string.terminal_auth_ki_fail));
 				}
 			} else {
 				bridge.outputLine(manager.res.getString(R.string.terminal_auth_fail));
@@ -608,7 +610,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 				lpf = connection.createLocalPortForwarder(
 						new InetSocketAddress(InetAddress.getLocalHost(), portForward.getSourcePort()),
 						portForward.getDestAddr(), portForward.getDestPort());
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Log.e(TAG, "Could not create local port forward", e);
 				return false;
 			}
@@ -624,7 +626,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 		} else if (HostDatabase.PORTFORWARD_REMOTE.equals(portForward.getType())) {
 			try {
 				connection.requestRemotePortForwarding("", portForward.getSourcePort(), portForward.getDestAddr(), portForward.getDestPort());
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Log.e(TAG, "Could not create remote port forward", e);
 				return false;
 			}
@@ -637,7 +639,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 			try {
 				dpf = connection.createDynamicPortForwarder(
 						new InetSocketAddress(InetAddress.getLocalHost(), portForward.getSourcePort()));
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Log.e(TAG, "Could not create dynamic port forward", e);
 				return false;
 			}
@@ -790,6 +792,7 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 	 * Handle challenges from keyboard-interactive authentication mode.
 	 */
 	public String[] replyToChallenge(String name, String instruction, int numPrompts, String[] prompt, boolean[] echo) {
+		interactiveCanContinue = true;
 		String[] responses = new String[numPrompts];
 		for(int i = 0; i < numPrompts; i++) {
 			// request response from user for each prompt
@@ -803,14 +806,23 @@ public class SSH extends AbsTransport implements ConnectionMonitor, InteractiveC
 		HostBean host = new HostBean();
 
 		host.setProtocol(PROTOCOL);
-		host.setNickname(uri.getFragment());
+
 		host.setHostname(uri.getHost());
 
 		int port = uri.getPort();
 		if (port < 0)
 			port = DEFAULT_PORT;
 		host.setPort(port);
+
 		host.setUsername(uri.getUserInfo());
+
+		String nickname = uri.getFragment();
+		if (nickname == null || nickname.length() == 0) {
+			host.setNickname(getDefaultNickname(host.getUsername(),
+					host.getHostname(), host.getPort()));
+		} else {
+			host.setNickname(uri.getFragment());
+		}
 
 		return host;
 	}

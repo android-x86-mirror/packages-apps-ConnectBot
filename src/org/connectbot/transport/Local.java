@@ -1,20 +1,19 @@
 /*
-	ConnectBot: simple, powerful, open-source SSH client for Android
-	Copyright (C) 2007-2008 Kenny Root, Jeffrey Sharkey
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * ConnectBot: simple, powerful, open-source SSH client for Android
+ * Copyright 2007 Kenny Root, Jeffrey Sharkey
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package org.connectbot.transport;
 
@@ -22,7 +21,6 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.connectbot.R;
@@ -35,6 +33,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.ase.Exec;
+
 /**
  * @author Kenny Root
  *
@@ -45,33 +45,10 @@ public class Local extends AbsTransport {
 
 	private static final String DEFAULT_URI = "local:#Local";
 
-	private static Method mExec_openSubprocess;
-	private static Method mExec_waitFor;
-	private static Method mExec_setPtyWindowSize;
-
 	private FileDescriptor shellFd;
 
 	private FileInputStream is;
 	private FileOutputStream os;
-
-	static {
-		initPrivateAPI();
-	}
-
-	private static void initPrivateAPI() {
-		try {
-			Class<?> mExec = Class.forName("android.os.Exec");
-			mExec_openSubprocess = mExec.getMethod("createSubprocess",
-					String.class, String.class, String.class, int[].class);
-			mExec_waitFor = mExec.getMethod("waitFor", int.class);
-			mExec_setPtyWindowSize = mExec.getMethod("setPtyWindowSize",
-					FileDescriptor.class, int.class, int.class, int.class, int.class);
-		} catch (NoSuchMethodException e) {
-			// Give up
-		} catch (ClassNotFoundException e) {
-			// Give up
-		}
-	}
 
 	/**
 	 *
@@ -113,21 +90,17 @@ public class Local extends AbsTransport {
 		int[] pids = new int[1];
 
 		try {
-			shellFd = (FileDescriptor) mExec_openSubprocess.invoke(null,
-				"/system/bin/sh", "-", null, pids);
+			shellFd = Exec.createSubprocess("/system/bin/sh", "-", null, pids);
 		} catch (Exception e) {
 			bridge.outputLine(manager.res.getString(R.string.local_shell_unavailable));
+			Log.e(TAG, "Cannot start local shell", e);
 			return;
 		}
 
 		final int shellPid = pids[0];
 		Runnable exitWatcher = new Runnable() {
 			public void run() {
-				try {
-					mExec_waitFor.invoke(null, shellPid);
-				} catch (Exception e) {
-					Log.e(TAG, "Couldn't wait for shell exit", e);
-				}
+				Exec.waitFor(shellPid);
 
 				bridge.dispatchDisconnect(false);
 			}
@@ -181,7 +154,7 @@ public class Local extends AbsTransport {
 	@Override
 	public void setDimensions(int columns, int rows, int width, int height) {
 		try {
-			mExec_setPtyWindowSize.invoke(null, shellFd, rows, columns, width, height);
+			Exec.setPtyWindowSize(shellFd, rows, columns, width, height);
 		} catch (Exception e) {
 			Log.e(TAG, "Couldn't resize pty", e);
 		}
@@ -214,7 +187,14 @@ public class Local extends AbsTransport {
 		HostBean host = new HostBean();
 
 		host.setProtocol(PROTOCOL);
-		host.setNickname(uri.getFragment());
+
+		String nickname = uri.getFragment();
+		if (nickname == null || nickname.length() == 0) {
+			host.setNickname(getDefaultNickname(host.getUsername(),
+					host.getHostname(), host.getPort()));
+		} else {
+			host.setNickname(uri.getFragment());
+		}
 
 		return host;
 	}
