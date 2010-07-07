@@ -220,7 +220,7 @@
 #define u_getISOComment u_getISOComment_3_8
 #define u_getIntPropertyMaxValue u_getIntPropertyMaxValue_3_8
 #define u_getIntPropertyMinValue u_getIntPropertyMinValue_3_8
-#define u_getIntPropertyValue u_getIntPropertyValue_3_8
+#define u_getIntPropertyValue u_getIntPropertyValue_4_2
 #define u_getNumericValue u_getNumericValue_3_8
 #define u_getPropertyEnum u_getPropertyEnum_3_8
 #define u_getPropertyName u_getPropertyName_3_8
