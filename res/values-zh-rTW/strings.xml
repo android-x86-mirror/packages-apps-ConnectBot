@@ -167,9 +167,9 @@
 	<string name="pref_update_summary">最大頻率檢查ConnectBot更新</string>
 
 	<!-- Name for the preference that forces the service to stay running in the background.-->
-	<string name="pref_conn_persist_title">持續連線</string>
+	<string name="pref_conn_persist_title">保持聯機</string>
 	<!-- Summary for the preference that forces the service to stay running in the background. -->
-	<string name="pref_conn_persist_summary">在背景執行時仍強制停留在連線狀態</string>
+	<string name="pref_conn_persist_summary">強制並保持連接在後台</string>
 
 	<!-- Name for the keyboard shortcuts preference -->
 	<string name="pref_keymode_title">目錄快捷鍵</string>
